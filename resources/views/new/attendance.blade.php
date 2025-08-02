@@ -8,6 +8,8 @@
                 <tr>
                     <td>{{$index+1}}</td>
                     <td>{{$user->name}}</td>
+                    <td>{{$user->status}}</td>
+                    <td>{{$user->date}}</td>
                 </tr>
             @endforeach
         </table>

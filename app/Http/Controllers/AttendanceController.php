@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 'student')->get();
+        $users = Student::all();
         return view('new.attendance', compact(['users']));
     }
 
