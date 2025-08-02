@@ -1,0 +1,14 @@
+form div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+form div input, select {
+    margin: 1rem;
+}
+
+input[type='submit'] {
+    align-self: center;
+    width: 50%;
+}

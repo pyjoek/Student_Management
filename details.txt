@@ -1,0 +1,10 @@
+database = 'goldSys'
+tables = {
+    user, staff, department, attendance
+}
+models = {
+    user, staff, department, attendance
+}
+controllers = {
+    ProfileController, ROleRedirection, StaffController, AttendanceController
+}
