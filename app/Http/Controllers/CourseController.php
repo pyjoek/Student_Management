@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -46,7 +47,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        // $lecture = Lecture::where('course_id', $id);
+        $course = Course::where('id', $id)->first();
+        $lectures = User::where('role', 'lecture')->get();
+        return view('course.list', compact(['course', 'lectures']));
     }
 
     /**

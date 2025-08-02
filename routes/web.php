@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::get('/dashboard', [CourseController::class, 'dashboard']);
         Route::post('/course', [CourseController::class, 'store'])->name('new.course');
-        Route::post('/course/{id}', [CourseController::class, 'show']);
+        Route::get('/course/{id}', [CourseController::class, 'show']);
         Route::get('/user',  [LectureController::class, 'index']);
         Route::post('/user', [RegisteredUserController::class, 'users'])->name('new.user');
         Route::get('/attendance', [AttendanceController::class, 'index']);

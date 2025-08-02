@@ -10,6 +10,9 @@
 <li class="nav-item">
     <a class="nav-link" href="/attendance">Attendance</a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="">Academy</a>
+</li>
 @endsection
 
 @section('content')
