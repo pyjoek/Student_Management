@@ -3,6 +3,7 @@
 use App\Http\Controllers\RoleRedirectController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/course/{id}', [CourseController::class, 'show']);
         Route::get('/user',  [LectureController::class, 'index']);
         Route::post('/user', [RegisteredUserController::class, 'users'])->name('new.user');
+        Route::post('/student', [StudentController::class, 'store'])->name('new.student');
         Route::get('/attendance', [AttendanceController::class, 'index']);
         Route::post('/attach', [LectureController::class, 'store'])->name('attach');
     });

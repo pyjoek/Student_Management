@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -47,18 +48,15 @@ class CourseController extends Controller
      */
     public function show($id)
     {
+        $student = Student::where('course_id', $id)->get();
         $course = Course::where('id', $id)->first();
         $lectures = User::where('role', 'lecture')->get();
-        return view('course.list', compact(['course', 'lectures']));
+        return view('course.list', compact(['course', 'lectures', 'students']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
-    {
-        
-    }
 
     /**
      * Update the specified resource in storage.

@@ -31,12 +31,12 @@ Users
 
 <center>
     <div class="form-selectin mb-2">
-        <button id="toggle-btn" class="btn btn-primary" onclick="project()">Add New User</button>
-        <button id="toggle-btn" class="btn btn-primary" onclick="customer()">View Users</button>
+        <button id="toggle-btn" class="btn btn-primary" onclick="project()">Add New Lecture</button>
+        <button id="toggle-btn" class="btn btn-primary" onclick="customer()">Add New Student</button>
     </div>
 </center>
+
 <center>
-    
     <div class="user">
         <div class="container d-flex justify-content-center align-items-center min-vh-100">
             <div class="card shadow-sm p-3" style="max-width: 400px; width: 100%; border-radius: 10px;">
@@ -95,7 +95,61 @@ Users
     </div>
     
     <div class="all">
-        <table class="">
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+            <div class="card shadow-sm p-3" style="max-width: 400px; width: 100%; border-radius: 10px;">
+                <form method="POST" action="{{ route('new.student') }}">
+                    @csrf
+    
+                    <h4 class="text-center mb-3">Add New Student</h4>
+    
+                    <!-- Name -->
+                    <div class="mb-2">
+                        <x-input-label for="name" :value="__('Name')" />
+                        <x-text-input id="name" class="form-control form-control-sm" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                        <x-input-error :messages="$errors->get('name')" class="text-danger mt-1" />
+                    </div>
+    
+                    <!-- Email Address -->
+                    <div class="mb-2">
+                        <x-input-label for="email" :value="__('Email')" />
+                        <x-text-input id="email" class="form-control form-control-sm" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="text-danger mt-1" />
+                    </div>
+    
+                    <!-- Role Selection -->
+                    <div class="mb-2">
+                        <x-input-label for="role" :value="__('Course')" />
+                        <select id="role" name="course_id" class="form-select form-select-sm" required>
+                            <option value="">Select Course</option>
+                            @foreach($course as $cous)
+                                <option value="{{$cous->id}}">{{$cous->course}}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('role')" class="text-danger mt-1" />
+                    </div>
+    
+                    <!-- Password -->
+                    <div class="mb-2">
+                        <x-input-label for="password" :value="__('Password')" />
+                        <x-text-input id="password" class="form-control form-control-sm" type="password" name="password" required autocomplete="new-password" />
+                        <x-input-error :messages="$errors->get('password')" class="text-danger mt-1" />
+                    </div>
+    
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-text-input id="password_confirmation" class="form-control form-control-sm" type="password" name="password_confirmation" required autocomplete="new-password" />
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="text-danger mt-1" />
+                    </div>
+    
+                    <!-- Submit Button -->
+                        <x-primary-button class="btn btn-danger btn-sm ms-2">
+                            {{ __('Register') }}
+                        </x-primary-button>
+                </form>
+            </div>
+        </div>
+        <!-- <table class="">
             <th>Name</th>
             <th>Email</th>
             @foreach($users as $user)
@@ -104,7 +158,7 @@ Users
                 <td>{{$user->email}}</td>
             </tr>
             @endforeach
-        </table>
+        </table> -->
     </div>
 </center>
 

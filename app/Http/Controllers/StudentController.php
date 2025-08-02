@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Course;
-use App\Models\Lecture;
-use App\Models\CourseLecture;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
-class LectureController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        $course = Course::all();
-        return view('new.lecture', compact(['users', 'course']));
+        //
     }
 
     /**
@@ -33,11 +28,11 @@ class LectureController extends Controller
      */
     public function store(Request $request)
     {
-        $course = Course::where('course', $request->course)->first()->id;
-
-        $new = CourseLecture::create([
-            'course_id' => $course,
-            'user_id' => $request->lecture,
+        $student = Student::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'course_id' => $request->course_id,
+            'password' => $request->password
         ]);
 
         return redirect()->back();
@@ -46,7 +41,7 @@ class LectureController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lecture $lecture)
+    public function show(Student $student)
     {
         //
     }
@@ -54,7 +49,7 @@ class LectureController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Lecture $lecture)
+    public function edit(Student $student)
     {
         //
     }
@@ -62,7 +57,7 @@ class LectureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Lecture $lecture)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -70,7 +65,7 @@ class LectureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lecture $lecture)
+    public function destroy(Student $student)
     {
         //
     }

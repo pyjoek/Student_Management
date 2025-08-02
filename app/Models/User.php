@@ -47,8 +47,10 @@ class User extends Authenticatable
 
     // use HasRoles;
 
-    public function course()
+    public function courses()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsToMany(Course::class, 'course_lectures', 'user_id', 'course_id')
+                    ->using(CourseLecture::class)
+                    ->withTimestamps();
     }
 }

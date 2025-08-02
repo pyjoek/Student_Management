@@ -5,12 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lecture extends Model
+class Student extends Model
 {
-    public function course_lectures()
-    {
-        return $this->hasMany(CourseLecture::class);
-    }
-
+    protected $fillable = ['name', 'email', 'course_id', 'password'];
     use HasFactory;
 }

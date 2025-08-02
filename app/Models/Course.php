@@ -9,10 +9,18 @@ class Course extends Model
 {
     protected $fillable = ['course'];
 
-    public function user()
+    public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'course_lectures', 'course_id', 'user_id')
+                    ->using(CourseLecture::class)
+                    ->withTimestamps();
     }
+
+    public function course_lectures()
+    {
+        return $this->hasMany(CourseLecture::class);
+    }
+
 
     use HasFactory;
 }
