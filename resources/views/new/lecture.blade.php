@@ -40,7 +40,7 @@ Users
     <div class="user">
         <div class="container d-flex justify-content-center align-items-center min-vh-100">
             <div class="card shadow-sm p-3" style="max-width: 400px; width: 100%; border-radius: 10px;">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('new.user') }}">
                     @csrf
     
                     <h4 class="text-center mb-3">Add New User</h4>
@@ -65,8 +65,8 @@ Users
                         <select id="role" name="role" class="form-select form-select-sm" required>
                             <option value="">Select Role</option>
                             <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>Lecture</option>
-                            <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Student</option>
+                            <option value="lecture" {{ old('role') == 'lecture' ? 'selected' : '' }}>Lecture</option>
+                            <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Student</option>
                         </select>
                         <x-input-error :messages="$errors->get('role')" class="text-danger mt-1" />
                     </div>

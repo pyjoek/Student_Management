@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin')
 
 @section('header')
 Attach Lecture to A Course
@@ -10,9 +10,8 @@ Attach Lecture to A Course
 <div class="container mt-4">
     <h4 class="mb-3">Assign Lecture to Course</h4>
 
-    <form method="POST" action="{{ route('new.course') }}">
+    <form method="POST" action="{{ route('attach') }}">
         @csrf
-
         <div class="row g-3 align-items-center">
             <!-- Course Name -->
             <div class="col-md-5">

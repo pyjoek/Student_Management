@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user',  [LectureController::class, 'index']);
         Route::post('/user', [RegisteredUserController::class, 'users'])->name('new.user');
         Route::get('/attendance', [AttendanceController::class, 'index']);
+        Route::post('/attach', [LectureController::class, 'store'])->name('attach');
     });
     
     Route::middleware('role:admin|lecture')->group(function () {

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Course;
 use App\Models\Lecture;
+use App\Models\CourseLecture;
 use Illuminate\Http\Request;
 
 class LectureController extends Controller
@@ -30,7 +32,14 @@ class LectureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $course = Course::where('course', $request->course)->first()->id;
+
+        $new = CourseLecture::create([
+            'course_id' => $course,
+            'user_id' => $request->lecture,
+        ]);
+
+        return redirect()->back();
     }
 
     /**

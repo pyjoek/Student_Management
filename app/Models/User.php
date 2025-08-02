@@ -46,4 +46,9 @@ class User extends Authenticatable
     ];
 
     // use HasRoles;
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
