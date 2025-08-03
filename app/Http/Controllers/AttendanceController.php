@@ -9,9 +9,26 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+    public function index()
+    {
+        $dates = Attendance::select('date')->distinct()->orderBy('date', 'desc')->pluck('date');
+        return view('new.attendance', compact('dates'));
+    }
+
+    public function show($date)
+    {
+        $dates = Attendance::select('date')->distinct()->orderBy('date', 'desc')->pluck('date');
+        $attendanceData = Attendance::with('student')->where('date', $date)->get();
+
+        return view('new.attendance', [
+            'dates' => $dates,
+            'attendanceData' => $attendanceData,
+            'selectedDate' => $date
+        ]);
+    }
     // AttendanceController.php
 
-    public function show()
+    public function showd()
     {
         $user = auth()->user();
 
@@ -50,7 +67,7 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function indexd()
     {
         $users = Student::all();
         return view('new.attendance', compact(['users']));
@@ -116,7 +133,7 @@ class AttendanceController extends Controller
                         ->get();
 
         $totalPresent = $attendances->where('status', 'present')->count();
-        $totalDays = $attendances->count();
+        $totalDays = 30;
 
         $attendancePercentage = $totalDays > 0
             ? round(($totalPresent / $totalDays) * 100, 2)
@@ -130,7 +147,7 @@ class AttendanceController extends Controller
         $users = User::where('role', 'student')->get(); // Adjust if you're using roles
 
         $students = $users->map(function ($user) {
-            $totalDays = Attendance::where('student_id', $user->id)->count();
+            $totalDays = 30;
             $presentDays = Attendance::where('student_id', $user->id)->where('status', 'present')->count();
             $percentage = $totalDays > 0 ? round(($presentDays / $totalDays) * 100, 2) : 0;
 

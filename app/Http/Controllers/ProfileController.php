@@ -48,10 +48,27 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function destroy(Request $request)
+    {
+        $user = auth()->user();
+
+        // Optionally: delete related data first
+
+        auth()->logout(); // log out before deleting
+
+        $user->delete(); // delete user record
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'Your account has been deleted.');
+    }
+
+
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroys(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],

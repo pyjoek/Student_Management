@@ -5,43 +5,42 @@ Attendance
 @endsection
 
 @section('content')
-<div class="table-section">
-    <form action="{{ route('attendance') }}" method="POST">
-        @csrf
+<div class="container">
+
+    {{-- List of attendance dates --}}
+    <h5>Select a Date</h5>
+    <div class="d-flex overflow-auto gap-2 mb-4" style="white-space: nowrap;">
+    @foreach($dates as $date)
+        <a href="{{ route('attendance.show', ['date' => $date]) }}" 
+           class="btn btn-outline-primary flex-shrink-0">
+            {{ \Carbon\Carbon::parse($date)->format('F j, Y') }}
+        </a>
+    @endforeach
+</div>
+
+
+    {{-- Attendance details for selected date --}}
+    @if(isset($attendanceData))
+        <h5>Attendance for {{ \Carbon\Carbon::parse($selectedDate)->format('F j, Y') }}</h5>
         <table class="table table-bordered table-sm">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Name</th>
                     <th>Status</th>
-                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $index => $user)
+                @foreach($attendanceData as $index => $record)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>
-                            <input type="text" name="attendance[{{ $index }}][name]" value="{{ $user->name }}" class="form-control form-control-sm" readonly>
-                            <input type="hidden" name="student_id" value="{{ $user->id }}">
-                        </td>
-                        <td>
-                            <select name="status" class="form-select form-select-sm" required>
-                                <option value="present">Present</option>
-                                <option value="absent">Absent</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="date" name="date" class="form-control form-control-sm" required>
-                        </td>
+                        <td>{{ $record->student->name }}</td>
+                        <td>{{ ucfirst($record->status) }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <div class="text-end mt-2">
-            <button type="submit" class="btn btn-sm btn-success">Submit All Attendance</button>
-        </div>
-    </form>
-</div>
+    @endif
 
+</div>
 @endsection

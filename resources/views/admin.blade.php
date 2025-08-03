@@ -27,6 +27,9 @@ Profile Management
 
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
 <div class="container">
     <h4 class="mb-4">My Profile</h4>
 
@@ -59,6 +62,11 @@ Profile Management
         </div>
 
         <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+    <form method="POST" action="{{ route('profile.destroy') }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger mt-2">Delete Account</button>
     </form>
 </div>
 @endsection

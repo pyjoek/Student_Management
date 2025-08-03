@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::middleware('auth')->get('/report', [AttendanceController::class, 'report'])->name('report');
+    Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
     // Role-gate areas
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/academy/module', [AcademyController::class, 'store'])->name('new.module');
         Route::post('/academy/marks', [MarksController::class, 'store'])->name('new.marks');
         Route::get('/admin/report', [AttendanceController::class, 'adminReport'])->name('admin.report');
+        
+        Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+        Route::get('/attendance/{date}', [AttendanceController::class, 'show'])->name('attendance.show');
 
     });
     
