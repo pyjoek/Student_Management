@@ -21,6 +21,17 @@ class Course extends Model
         return $this->hasMany(CourseLecture::class);
     }
 
+    public function academy()
+    {
+        return $this->hasMany(Academy::class);
+    }
+
+    public function student()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    
 
     use HasFactory;
 }

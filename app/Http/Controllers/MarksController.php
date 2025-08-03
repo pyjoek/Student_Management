@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Student;
-use App\Models\Attendance;
+use App\Models\Marks;
 use Illuminate\Http\Request;
 
-class AttendanceController extends Controller
+class MarksController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = Student::all();
-        return view('new.attendance', compact(['users']));
+        //
     }
 
     /**
@@ -31,11 +28,11 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        $name = Student::where('name', $request->name)->get()->first()->id;
-        $data = Attendance::create([
-            'student_id' => $name,
-            'status' => $request->status,
-            'date' => $request->date
+        $mark = Marks::create([
+            'student' => $request->student,
+            'course' => $request->course,
+            'module' => $request->module,
+            'marks' => $request->marks
         ]);
 
         return redirect()->back();
@@ -44,7 +41,7 @@ class AttendanceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Attendance $attendance)
+    public function show(Marks $marks)
     {
         //
     }
@@ -52,7 +49,7 @@ class AttendanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Attendance $attendance)
+    public function edit(Marks $marks)
     {
         //
     }
@@ -60,7 +57,7 @@ class AttendanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Attendance $attendance)
+    public function update(Request $request, Marks $marks)
     {
         //
     }
@@ -68,7 +65,7 @@ class AttendanceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Attendance $attendance)
+    public function destroy(Marks $marks)
     {
         //
     }

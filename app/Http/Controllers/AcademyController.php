@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Academy;
+use App\Models\Course;
 use App\Models\Student;
-use App\Models\Attendance;
 use Illuminate\Http\Request;
 
-class AttendanceController extends Controller
+class AcademyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = Student::all();
-        return view('new.attendance', compact(['users']));
+        $course = Course::all();
+        $student = Student::all();
+        
+        return view('academic.academic', compact(['course', 'student']));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function marks()
     {
         //
     }
@@ -31,11 +33,9 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        $name = Student::where('name', $request->name)->get()->first()->id;
-        $data = Attendance::create([
-            'student_id' => $name,
-            'status' => $request->status,
-            'date' => $request->date
+        $mod = Academy::create([
+            'course_id' => $request->course,
+            'module' => $request->module
         ]);
 
         return redirect()->back();
@@ -44,7 +44,7 @@ class AttendanceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Attendance $attendance)
+    public function show(Academy $academy)
     {
         //
     }
@@ -52,7 +52,7 @@ class AttendanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Attendance $attendance)
+    public function edit(Academy $academy)
     {
         //
     }
@@ -60,7 +60,7 @@ class AttendanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Attendance $attendance)
+    public function update(Request $request, Academy $academy)
     {
         //
     }
@@ -68,7 +68,7 @@ class AttendanceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Attendance $attendance)
+    public function destroy(Academy $academy)
     {
         //
     }

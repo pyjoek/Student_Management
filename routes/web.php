@@ -3,6 +3,8 @@
 use App\Http\Controllers\RoleRedirectController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\MarksController;
+use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -36,7 +38,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/user', [RegisteredUserController::class, 'users'])->name('new.user');
         Route::post('/student', [StudentController::class, 'store'])->name('new.student');
         Route::get('/attendance', [AttendanceController::class, 'index']);
+        Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance');
         Route::post('/attach', [LectureController::class, 'store'])->name('attach');
+        Route::get('/academy', [AcademyController::class, 'index']);
+        Route::post('/academy/module', [AcademyController::class, 'store'])->name('new.module');
+        Route::post('/academy/marks', [MarksController::class, 'store'])->name('new.marks');
     });
     
     Route::middleware('role:admin|lecture')->group(function () {
