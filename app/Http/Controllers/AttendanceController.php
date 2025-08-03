@@ -35,20 +35,55 @@ class AttendanceController extends Controller
     //     return view('student', compact(['users', 'attendanceCount']));
     // }
 
-    public function show()
-    {
-        $user = auth()->user();
+    // public function show()
+    // {
+    //     $user = auth()->user();
 
-        $id = Student::where('name',$user->name)->first();
-        $attendanceCount = Attendance::where('student_id', $id)->count();
-        $today = now()->toDateString();
+    //     $id = Student::where('name',$user->name)->first();
+    //     $attendanceCount = Attendance::where('student_id', $id)->count();
+    //     $today = now()->toDateString();
 
-        $alreadyMarked = Attendance::where('student_id', $id)
-                            ->whereDate('date', $today)
-                            ->exists();
+    //     $alreadyMarked = Attendance::where('student_id', $id)
+    //                         ->whereDate('date', $today)
+    //                         ->exists();
 
-        return view('student', compact('attendanceCount', 'alreadyMarked'));
+    //     return view('new.attendance', compact('attendanceCount', 'alreadyMarked'));
+    // }
+
+    public function show($date)
+{
+    $selectedDate = $date;
+    $dates = Attendance::select('date')->distinct()->pluck('date');
+
+    // Attendance for the selected date
+    $attendanceData = Attendance::with('student')->where('date', $selectedDate)->get();
+
+    // Check low attendance
+    $lowAttendanceStudents = [];
+    $students = Student::all();
+
+    foreach ($students as $student) {
+        $total = Attendance::where('student_id', $student->id)->count();
+        $present = Attendance::where('student_id', $student->id)->where('status', 'present')->count();
+
+        $percentage = $total > 0 ? round(($present / $total) * 100, 2) : 0;
+
+        if ($percentage < 50) {
+            $lowAttendanceStudents[] = [
+                'name' => $student->name,
+                'percentage' => $percentage,
+            ];
+        }
     }
+
+    return view('new.attendance', compact(
+        'dates',
+        'selectedDate',
+        'attendanceData',
+        'lowAttendanceStudents'
+    ));
+}
+
 
     public function markAttendance(Request $request)
     {
