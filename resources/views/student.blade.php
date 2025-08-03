@@ -5,6 +5,9 @@
     <a class="nav-link" href="/profile">Profile</a>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="/student">Mark</a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="/report">Reports</a>
 </li>
 
@@ -13,10 +16,6 @@
 @section('content')
 <div class="container">
     <h4>Welcome, {{ auth()->user()->name }}</h4>
-
-    <div class="mb-3">
-        <strong>Attendance Days:</strong> {{ $attendanceCount }}
-    </div>
 
     <form action="attendanced" method="POST">
         @csrf

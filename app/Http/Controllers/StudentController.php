@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,10 +18,10 @@ public function show()
 {
     $user = auth()->user();
 
-    $attendanceCount = Attendance::where('user_id', $user->id)->count();
+    $attendanceCount = Attendance::where('student_id', $user->id)->count();
     $today = now()->toDateString();
 
-    $alreadyMarked = Attendance::where('user_id', $user->id)
+    $alreadyMarked = Attendance::where('student_id', $user->id)
                         ->whereDate('date', $today)
                         ->exists();
 
@@ -32,7 +33,7 @@ public function markAttendance(Request $request)
     $user = auth()->user();
     $date = $request->input('date', now()->toDateString());
 
-    $alreadyMarked = Attendance::where('user_id', $user->id)
+    $alreadyMarked = Attendance::where('student_id', $user->id)
                         ->whereDate('date', $date)
                         ->exists();
 
@@ -52,8 +53,11 @@ public function markAttendance(Request $request)
      */
     public function index()
     {
+         $user = auth()->user();
         $users = Student::all();
-        return view('student', compact('users'));
+        $attendanceCount = Attendance::where('student_id', $user->id)->count();
+        dd($attendanceCount);
+        return view('student', compact(['users', 'attendanceCount']));
     }
 
     /**
@@ -114,4 +118,5 @@ public function markAttendance(Request $request)
     {
         //
     }
+
 }

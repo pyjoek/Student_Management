@@ -15,7 +15,7 @@ class AttendanceController extends Controller
         return view('new.attendance', compact('dates'));
     }
 
-    public function show($date)
+    public function showd($date)
     {
         $dates = Attendance::select('date')->distinct()->orderBy('date', 'desc')->pluck('date');
         $attendanceData = Attendance::with('student')->where('date', $date)->get();
@@ -27,8 +27,15 @@ class AttendanceController extends Controller
         ]);
     }
     // AttendanceController.php
+    // public function index()
+    // {
+    //      $user = auth()->user();
+    //     $users = Student::all();
+    //     $attendanceCount = Attendance::where('student_id', $user->id)->count();
+    //     return view('student', compact(['users', 'attendanceCount']));
+    // }
 
-    public function showd()
+    public function show()
     {
         $user = auth()->user();
 
