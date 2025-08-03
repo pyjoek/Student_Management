@@ -30,9 +30,9 @@ Add New Module
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <center>
-    <div class="form-selectin mb-2">
-        <button id="toggle-btn" class="btn btn-primary" onclick="project()">Add New Lecture</button>
-        <button id="toggle-btn" class="btn btn-primary" onclick="customer()">Add New Student</button>
+    <div class="form-selectin mb-1">
+        <button id="toggle-btn" class="btn btn-primary" onclick="project()">Add New Module</button>
+        <button id="toggle-btn" class="btn btn-primary" onclick="customer()">Mark Student</button>
     </div>
 </center>
 

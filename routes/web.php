@@ -3,6 +3,7 @@
 use App\Http\Controllers\RoleRedirectController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MarksController;
 use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\StudentController;
@@ -28,6 +29,11 @@ Route::get('/redirect-by-role', RoleRedirectController::class)->middleware(['aut
 
 Route::middleware('auth')->group(function () {
     Route::get('/course', [CourseController::class, 'index'])->name('course');
+    Route::get('/student', [StudentController::class, 'index']);
+    Route::get('/student', [AttendanceController::class, 'show'])->name('student.attendance');
+    Route::post('/attendanced', [AttendanceController::class, 'markAttendance'])->name('student.attendance.mark');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // Role-gate areas
     Route::middleware('role:admin')->group(function () {

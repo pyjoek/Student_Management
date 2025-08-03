@@ -9,6 +9,44 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+    // AttendanceController.php
+
+    public function show()
+    {
+        $user = auth()->user();
+
+        $id = Student::where('name',$user->name)->first();
+        $attendanceCount = Attendance::where('student_id', $id)->count();
+        $today = now()->toDateString();
+
+        $alreadyMarked = Attendance::where('student_id', $id)
+                            ->whereDate('date', $today)
+                            ->exists();
+
+        return view('student', compact('attendanceCount', 'alreadyMarked'));
+    }
+
+    public function markAttendance(Request $request)
+    {
+        $user = auth()->user();
+        $id = Student::where('name',$user->name)->first();
+        $date = $request->input('date', now()->toDateString());
+
+        $alreadyMarked = Attendance::where('student_id', $id)
+                            ->whereDate('date', $date)
+                            ->exists();
+
+        if (!$alreadyMarked) {
+            Attendance::create([
+                'student_id' => $id->id,
+                'date' => $date,
+                'status' => 'present',
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Attendance marked successfully.');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -43,10 +81,7 @@ class AttendanceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Attendance $attendance)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

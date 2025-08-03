@@ -41,9 +41,7 @@
             <div class="collapse d-lg-block col-lg-2 bg-light border-end p-3 min-vh-100" id="sidebarCollapse">
                 <aside>
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Profile</a>
-                        </li>
+                        
                         @yield('side')
                     </ul>
 

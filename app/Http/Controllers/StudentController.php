@@ -3,16 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    // AttendanceController.php
+
+public function show()
+{
+    $user = auth()->user();
+
+    $attendanceCount = Attendance::where('user_id', $user->id)->count();
+    $today = now()->toDateString();
+
+    $alreadyMarked = Attendance::where('user_id', $user->id)
+                        ->whereDate('date', $today)
+                        ->exists();
+
+    return view('student', compact('attendanceCount', 'alreadyMarked'));
+}
+
+public function markAttendance(Request $request)
+{
+    $user = auth()->user();
+    $date = $request->input('date', now()->toDateString());
+
+    $alreadyMarked = Attendance::where('user_id', $user->id)
+                        ->whereDate('date', $date)
+                        ->exists();
+
+    if (!$alreadyMarked) {
+        Attendance::create([
+            'user_id' => $user->id,
+            'date' => $date,
+            'status' => 'present',
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'Attendance marked successfully.');
+}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $users = Student::all();
+        return view('student', compact('users'));
     }
 
     /**
@@ -35,16 +76,20 @@ class StudentController extends Controller
             'password' => $request->password
         ]);
 
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'student'
+        ]);
+
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
