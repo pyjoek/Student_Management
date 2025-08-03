@@ -5,17 +5,17 @@ Attendance
 @endsection
 
 @section('content')
-@if(!empty($lowAttendanceStudents))
-    <div class="alert alert-danger">
-        <strong>Alert:</strong> The following students have less than 50% overall attendance:
-        <ul class="mb-0">
-            @foreach($lowAttendanceStudents as $student)
-                <li>{{ $student['name'] }} — {{ $student['percentage'] }}%</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 <div class="container">
+    @if(!empty($lowAttendanceStudents))
+        <div class="alert alert-danger">
+            <strong>Alert:</strong> The following students have less than 50% overall attendance:
+            <ul class="mb-0">
+                @foreach($lowAttendanceStudents as $student)
+                    <li>{{ $student['name'] }} — {{ $student['percentage'] }}%</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     {{-- List of attendance dates --}}
     <h5>Select a Date</h5>

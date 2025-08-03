@@ -18,7 +18,9 @@
     <!-- Navbar with Toggle Button for Sidebar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Apex Project Management System</a>
+            <!-- <a class="navbar-brand color-transparent" href="#">Zanzibar University Management System</a> -->
+            <a class="navbar-brand" style="color: transparent;" href="#">Zanzibar University Management System</a>
+
 
             <!-- Sidebar Toggle Button for small screens -->
             <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse">
