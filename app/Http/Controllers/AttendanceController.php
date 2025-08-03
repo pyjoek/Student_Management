@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Attendance;
@@ -105,5 +105,43 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         //
+    }
+
+    public function report()
+    {
+        $user = Auth::user();
+
+        $attendances = Attendance::where('student_id', $user->id)
+                        ->orderBy('date', 'desc')
+                        ->get();
+
+        $totalPresent = $attendances->where('status', 'present')->count();
+        $totalDays = $attendances->count();
+
+        $attendancePercentage = $totalDays > 0
+            ? round(($totalPresent / $totalDays) * 100, 2)
+            : 0;
+
+        return view('report', compact('attendances', 'totalPresent', 'attendancePercentage'));
+    }
+
+    public function adminReport()
+    {
+        $users = User::where('role', 'student')->get(); // Adjust if you're using roles
+
+        $students = $users->map(function ($user) {
+            $totalDays = Attendance::where('student_id', $user->id)->count();
+            $presentDays = Attendance::where('student_id', $user->id)->where('status', 'present')->count();
+            $percentage = $totalDays > 0 ? round(($presentDays / $totalDays) * 100, 2) : 0;
+
+            return (object)[
+                'name' => $user->name,
+                'totalDays' => $totalDays,
+                'presentDays' => $presentDays,
+                'percentage' => $percentage,
+            ];
+        });
+
+        return view('reports', compact('students'));
     }
 }

@@ -20,6 +20,9 @@ Profile Management
 <li class="nav-item">
     <a class="nav-link" href="/academy">Academy</a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="/admin/report">Reports</a>
+</li>
 @endsection
 
 

@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendanced', [AttendanceController::class, 'markAttendance'])->name('student.attendance.mark');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::middleware('auth')->get('/report', [AttendanceController::class, 'report'])->name('report');
+
 
     // Role-gate areas
     Route::middleware('role:admin')->group(function () {
@@ -49,6 +51,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/academy', [AcademyController::class, 'index']);
         Route::post('/academy/module', [AcademyController::class, 'store'])->name('new.module');
         Route::post('/academy/marks', [MarksController::class, 'store'])->name('new.marks');
+        Route::get('/admin/report', [AttendanceController::class, 'adminReport'])->name('admin.report');
+
     });
     
     Route::middleware('role:admin|lecture')->group(function () {
