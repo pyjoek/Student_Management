@@ -62,14 +62,6 @@
                     {{ __('Log in') }}
                 </x-primary-button>
             </div>
-
-            <!-- Optional Register Link -->
-            @if (Route::has('register'))
-                <p class="mt-3 text-center">
-                    Don't have an account?
-                    <a href="{{ route('register') }}" class="text-decoration-none">Register</a>
-                </p>
-            @endif
         </form>
     </div>
 </div>
