@@ -31,9 +31,8 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        $name = Student::where('name', $request->name)->get()->first()->id;
         $data = Attendance::create([
-            'student_id' => $name,
+            'student_id' => $request->student_id,
             'status' => $request->status,
             'date' => $request->date
         ]);

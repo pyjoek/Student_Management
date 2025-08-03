@@ -36,7 +36,6 @@ Add New Module
     </div>
 </center>
 
-<center>
     <div class="user">
         <div class="container d-flex justify-content-center align-items-center min-vh-100">
             <div class="card shadow-sm p-3" style="max-width: 400px; width: 100%; border-radius: 10px;">
@@ -73,39 +72,68 @@ Add New Module
         </div>
     </div>
     
-    <div class="all">
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
-            <div class="card shadow-sm p-3" style="max-width: 400px; width: 100%; border-radius: 10px;">
-                <form method="POST" action="{{ route('new.marks') }}">
-                    @csrf
-                    <h4 class="text-center mb-3">Mark Students</h4>
+   <div class="all">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card shadow-sm p-3" style="width: 100%; border-radius: 10px;">
+            <h4 class="text-center mb-3">Mark Students</h4>
 
-                    <table>
-                        <th>Course Name</th>
-                        <th>Student Name</th>
-                        <th>Module</th>
-                        @foreach($student as $user)
+            <form method="POST" action="{{ route('new.marks') }}">
+                @csrf
+                <table class="table table-bordered table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Student Name</th>
+                            <th>Course Name</th>
+                            <th>Module</th>
+                            <th>Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($student as $index => $user)
                             <tr>
-                                <td><input type="text" name="student" value="{{$user->name}}"></td>
-                                <td><input type="text" name="course" value="{{$user->course->course}}"></td>
+                                <td>{{ $index + 1 }}</td>
+
+                                <!-- Student Name -->
                                 <td>
-                                    <select name="module" id="">
+                                    <input type="text" class="form-control form-control-sm" value="{{ $user->name }}" readonly>
+                                    <input type="hidden" name="marks[{{ $index }}][student]" value="{{ $user->name }}">
+                                </td>
+
+                                <!-- Course Name -->
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" value="{{ $user->course->course }}" readonly>
+                                    <input type="hidden" name="marks[{{ $index }}][course]" value="{{ $user->course->course }}">
+                                </td>
+
+                                <!-- Module -->
+                                <td>
+                                    <select name="marks[{{ $index }}][module]" class="form-select form-select-sm" required>
+                                        <option value="">Select Module</option>
                                         @foreach($user->course->academy as $module)
-                                            <option value="{{$module->module}}">{{$module->module}}</option>
+                                            <option value="{{ $module->module }}">{{ $module->module }}</option>
                                         @endforeach
                                     </select>
                                 </td>
-                                <td><input type="text" name="marks" placeholder="Marks"></td>
+
+                                <!-- Marks -->
                                 <td>
-                                    <input type="submit" value="Mark">
+                                    <input type="text" name="marks[{{ $index }}][marks]" class="form-control form-control-sm" placeholder="Enter Marks" required>
                                 </td>
                             </tr>
                         @endforeach
-                    </table>
-                </form>
-            </div>
+                    </tbody>
+                </table>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-sm btn-success">Submit All Marks</button>
+                </div>
+            </form>
         </div>
     </div>
-</center>
+</div>
+
+
+
 
 @endsection

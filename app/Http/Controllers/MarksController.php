@@ -26,17 +26,34 @@ class MarksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $mark = Marks::create([
+    //         'student' => $request->student,
+    //         'course' => $request->course,
+    //         'module' => $request->module,
+    //         'marks' => $request->marks
+    //     ]);
+
+    //     return redirect()->back();
+    // }
+
     public function store(Request $request)
     {
-        $mark = Marks::create([
-            'student' => $request->student,
-            'course' => $request->course,
-            'module' => $request->module,
-            'marks' => $request->marks
-        ]);
+        $data = $request->input('marks');
 
-        return redirect()->back();
+        foreach ($data as $entry) {
+            Marks::create([
+                'student' => $entry['student'],
+                'course' => $entry['course'],
+                'module' => $entry['module'],
+                'marks' => $entry['marks'],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'All marks submitted successfully.');
     }
+
 
     /**
      * Display the specified resource.
