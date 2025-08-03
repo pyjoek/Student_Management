@@ -132,40 +132,64 @@ class AttendanceController extends Controller
     }
 
     public function report()
-    {
-        $user = Auth::user();
+   {
+    $user = Auth::user();
 
-        $attendances = Attendance::where('student_id', $user->id)
-                        ->orderBy('date', 'desc')
-                        ->get();
+    // Step 1: Find the student by name
+    $student = Student::where('name', $user->name)->first();
 
-        $totalPresent = $attendances->where('status', 'present')->count();
-        $totalDays = 30;
-
-        $attendancePercentage = $totalDays > 0
-            ? round(($totalPresent / $totalDays) * 100, 2)
-            : 0;
-
-        return view('report', compact('attendances', 'totalPresent', 'attendancePercentage'));
+    if (!$student) {
+        return redirect()->back()->with('error', 'Student record not found.');
     }
+
+    // Step 2: Get attendance using student ID
+    $attendances = Attendance::where('student_id', $student->id)
+        ->orderBy('date', 'desc')
+        ->get();
+
+    // Step 3: Attendance calculations
+    $totalPresent = $attendances->where('status', 'present')->count();
+    $totalDays = 30; // or fixed 30, depending on how you define it
+
+    $attendancePercentage = $totalDays > 0
+        ? round(($totalPresent / $totalDays) * 100, 2)
+        : 0;
+
+    return view('report', compact('attendances', 'totalPresent', 'attendancePercentage'));
+}
 
     public function adminReport()
-    {
-        $users = User::where('role', 'student')->get(); // Adjust if you're using roles
+   {
+    $users = User::where('role', 'student')->get();
 
-        $students = $users->map(function ($user) {
-            $totalDays = 30;
-            $presentDays = Attendance::where('student_id', $user->id)->where('status', 'present')->count();
-            $percentage = $totalDays > 0 ? round(($presentDays / $totalDays) * 100, 2) : 0;
+    $students = $users->map(function ($user) {
+        // Match user by name to student
+        $student = Student::where('name', $user->name)->first();
 
+        if (!$student) {
             return (object)[
                 'name' => $user->name,
-                'totalDays' => $totalDays,
-                'presentDays' => $presentDays,
-                'percentage' => $percentage,
+                'totalDays' => 0,
+                'presentDays' => 0,
+                'percentage' => 0,
             ];
-        });
+        }
 
-        return view('reports', compact('students'));
-    }
+        $totalDays = 30; // or Attendance::where('student_id', $student->id)->count();
+        $presentDays = Attendance::where('student_id', $student->id)
+                                 ->where('status', 'present')
+                                 ->count();
+
+        $percentage = $totalDays > 0 ? round(($presentDays / $totalDays) * 100, 2) : 0;
+
+        return (object)[
+            'name' => $user->name,
+            'totalDays' => $totalDays,
+            'presentDays' => $presentDays,
+            'percentage' => $percentage,
+        ];
+    });
+
+    return view('reports', compact('students'));
+}
 }

@@ -56,7 +56,6 @@ public function markAttendance(Request $request)
          $user = auth()->user();
         $users = Student::all();
         $attendanceCount = Attendance::where('student_id', $user->id)->count();
-        dd($attendanceCount);
         return view('student', compact(['users', 'attendanceCount']));
     }
 

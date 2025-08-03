@@ -26,9 +26,9 @@
                 <label for="role" class="form-label">Register as</label>
                 <select id="role" name="role" class="form-select" required>
                     <option value="">Select Role</option>
-                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="manager" {{ old('role') == 'lecture' ? 'selected' : '' }}>Lecture</option>
-                    <option value="staff" {{ old('role') == 'student' ? 'selected' : '' }}>Student</option>
+                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Lecture</option>
+                    <!-- <option value="manager" {{ old('role') == 'lecture' ? 'selected' : '' }}></option> -->
+                    <!-- <option value="staff" {{ old('role') == 'student' ? 'selected' : '' }}>Student</option> -->
                 </select>
                 <x-input-error :messages="$errors->get('role')" class="text-danger mt-2" />
             </div>

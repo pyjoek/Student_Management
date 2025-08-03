@@ -29,7 +29,7 @@ Route::get('/redirect-by-role', RoleRedirectController::class)->middleware(['aut
 
 Route::middleware('auth')->group(function () {
     Route::get('/course', [CourseController::class, 'index'])->name('course');
-    Route::get('/student', [StudentController::class, 'index']);
+    Route::get('/students', [StudentController::class, 'index']);
     Route::get('/student', [AttendanceController::class, 'show'])->name('student.attendance');
     Route::post('/attendanced', [AttendanceController::class, 'markAttendance'])->name('student.attendance.mark');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
