@@ -1,17 +1,4 @@
-@extends('layouts.app')
-
-@section('side')
-<li class="nav-item">
-    <a class="nav-link" href="/profile">Profile</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/student">Mark</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/report">Reports</a>
-</li>
-
-@endsection
+@extends('student.app')
 
 @section('content')
 <div class="container">

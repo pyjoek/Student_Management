@@ -14,7 +14,7 @@ class ProfileController extends Controller
 
     public function show()
     {
-        return view('profile.profile');
+        return view('student.profile.profile');
     }
 
     public function update(Request $request)

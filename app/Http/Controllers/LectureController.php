@@ -17,7 +17,7 @@ class LectureController extends Controller
     {
         $users = User::all();
         $course = Course::all();
-        return view('new.lecture', compact(['users', 'course']));
+        return view('lecture.new.lecture', compact(['users', 'course']));
     }
 
     /**

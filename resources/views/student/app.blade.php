@@ -44,7 +44,19 @@
                 <aside>
                     <ul class="nav flex-column">
                         @yield('side')
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/student/dashboard">Dashbaord</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/student/profile">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/report">Reports</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/mark">Mark</a>
+                        </li>
                     </ul>
 
                     <form action="{{ route('logout') }}" method="POST" class="mt-4">

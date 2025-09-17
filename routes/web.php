@@ -29,32 +29,42 @@ Route::get('/redirect-by-role', RoleRedirectController::class)->middleware(['aut
 
 Route::middleware('auth')->group(function () {
     Route::get('/course', [CourseController::class, 'index'])->name('course');
-    Route::get('/students', [StudentController::class, 'index']);
-    Route::get('/student', [AttendanceController::class, 'show'])->name('student.attendance');
-    Route::post('/attendanced', [AttendanceController::class, 'markAttendance'])->name('student.attendance.mark');
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+
+    Route::get('/student/dashboard', [AttendanceController::class, 'dashboard'])->name('student.attendance');
+
+    Route::get('/student/profile', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::middleware('auth')->get('/report', [AttendanceController::class, 'report'])->name('report');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/report', [AttendanceController::class, 'report'])->name('report');
+    
+    Route::get('/mark', [StudentController::class, 'show']);
+    Route::post('/attendanced', [AttendanceController::class, 'markAttendance'])->name('student.attendance.mark');
 
 
     // Role-gate areas
     Route::middleware('role:admin')->group(function () {
         Route::get('/dashboard', [CourseController::class, 'dashboard']);
+
         Route::get('/profile', [CourseController::class, 'profile']);
+
         Route::get('/user',  [LectureController::class, 'index']);
         Route::post('/user', [RegisteredUserController::class, 'users'])->name('new.user');
-        Route::post('/course', [CourseController::class, 'store'])->name('new.course');
+
         Route::get('/course/{id}', [CourseController::class, 'show']);
-        Route::post('/student', [StudentController::class, 'store'])->name('new.student');
+        Route::post('/course', [CourseController::class, 'store'])->name('new.course');
+
         Route::get('/attendance', [AttendanceController::class, 'index']);
         Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance');
-        Route::post('/attach', [LectureController::class, 'store'])->name('attach');
+
         Route::get('/academy', [AcademyController::class, 'index']);
         Route::post('/academy/module', [AcademyController::class, 'store'])->name('new.module');
         Route::post('/academy/marks', [MarksController::class, 'store'])->name('new.marks');
+
         Route::get('/admin/report', [AttendanceController::class, 'adminReport'])->name('admin.report');
-        
+
+        Route::post('/student', [StudentController::class, 'store'])->name('new.student');
+        Route::post('/attach', [LectureController::class, 'store'])->name('attach');
         Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
         Route::get('/attendance/{date}', [AttendanceController::class, 'show'])->name('attendance.show');
 

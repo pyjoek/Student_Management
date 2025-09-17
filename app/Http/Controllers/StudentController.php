@@ -14,10 +14,22 @@ class StudentController extends Controller
 
     // AttendanceController.php
 
+// public function show()
+// {
+//     $user = auth()->user();
+
+//     $attendanceCount = Attendance::where('student_id', $user->id)->count();
+//     $today = now()->toDateString();
+
+//     $alreadyMarked = Attendance::where('student_id', $user->id)
+//                         ->whereDate('date', $today)
+//                         ->exists();
+
+//     return view('student.student', compact('attendanceCount', 'alreadyMarked'));
+// }
 public function show()
 {
     $user = auth()->user();
-
     $attendanceCount = Attendance::where('student_id', $user->id)->count();
     $today = now()->toDateString();
 
@@ -25,8 +37,9 @@ public function show()
                         ->whereDate('date', $today)
                         ->exists();
 
-    return view('student', compact('attendanceCount', 'alreadyMarked'));
+    return view('student.student', compact('attendanceCount', 'alreadyMarked'));
 }
+
 
 public function markAttendance(Request $request)
 {
@@ -56,7 +69,7 @@ public function markAttendance(Request $request)
          $user = auth()->user();
         $users = Student::all();
         $attendanceCount = Attendance::where('student_id', $user->id)->count();
-        return view('student', compact(['users', 'attendanceCount']));
+        return view('student.student', compact(['users', 'attendanceCount']));
     }
 
     /**

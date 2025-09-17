@@ -17,7 +17,7 @@ class AcademyController extends Controller
         $course = Course::all();
         $student = Student::all();
         
-        return view('academic.academic', compact(['course', 'student']));
+        return view('lecture.academic.academic', compact(['course', 'student']));
     }
 
     /**
