@@ -51,11 +51,10 @@
                             <a class="nav-link" href="/student/profile">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/report">Reports</a>
-                        </li>
-
-                        <li class="nav-item">
                             <a class="nav-link" href="/mark">Mark</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/report">Reports</a>
                         </li>
                     </ul>
 

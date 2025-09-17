@@ -30,12 +30,11 @@ class StudentController extends Controller
 public function show()
 {
     $user = auth()->user();
+    $user = Student::where('email', $user->email)->first();
     $attendanceCount = Attendance::where('student_id', $user->id)->count();
     $today = now()->toDateString();
 
-    $alreadyMarked = Attendance::where('student_id', $user->id)
-                        ->whereDate('date', $today)
-                        ->exists();
+    $alreadyMarked = Attendance::where('student_id', $user->id)->whereDate('date', $today)->exists();
 
     return view('student.student', compact('attendanceCount', 'alreadyMarked'));
 }
