@@ -41,10 +41,11 @@ Route::middleware('auth')->group(function () {
     // Role-gate areas
     Route::middleware('role:admin')->group(function () {
         Route::get('/dashboard', [CourseController::class, 'dashboard']);
-        Route::post('/course', [CourseController::class, 'store'])->name('new.course');
-        Route::get('/course/{id}', [CourseController::class, 'show']);
+        Route::get('/profile', [CourseController::class, 'profile']);
         Route::get('/user',  [LectureController::class, 'index']);
         Route::post('/user', [RegisteredUserController::class, 'users'])->name('new.user');
+        Route::post('/course', [CourseController::class, 'store'])->name('new.course');
+        Route::get('/course/{id}', [CourseController::class, 'show']);
         Route::post('/student', [StudentController::class, 'store'])->name('new.student');
         Route::get('/attendance', [AttendanceController::class, 'index']);
         Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance');
@@ -57,11 +58,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
         Route::get('/attendance/{date}', [AttendanceController::class, 'show'])->name('attendance.show');
 
-    });
-    
-    Route::middleware('role:admin|lecture')->group(function () {
-        Route::get('/dash', [CourseController::class, 'dashboard'])->name('dashboard');
-        
     });
     
     Route::middleware('role:lecture')->group(function () {

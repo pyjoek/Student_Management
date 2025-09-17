@@ -50,13 +50,24 @@ class AttendanceController extends Controller
     //     return view('new.attendance', compact('attendanceCount', 'alreadyMarked'));
     // }
 
-    public function show($date)
+    public function show($date = null)
 {
+    // If no date is passed, default to today's date
+    if (!$date) {
+        $date = now()->format('Y-m-d'); // Default to today's date
+    }
+
     $selectedDate = $date;
     $dates = Attendance::select('date')->distinct()->pluck('date');
 
     // Attendance for the selected date
     $attendanceData = Attendance::with('student')->where('date', $selectedDate)->get();
+
+    // Check if there is no attendance data for the selected date
+    if ($attendanceData->isEmpty()) {
+        // If no data, pass a flag or message
+        $attendanceData = null;  // or pass a message like 'No data available for this date'
+    }
 
     // Check low attendance
     $lowAttendanceStudents = [];

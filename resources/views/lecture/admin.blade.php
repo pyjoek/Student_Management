@@ -6,7 +6,10 @@ Profile Management
 
 @section('side')
 <li class="nav-item">
-    <a class="nav-link" href="/dashboard">Profile</a>
+    <a class="nav-link" href="/dashboard">Dashbaord</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/profile">Profile</a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="/user">Add User</a>

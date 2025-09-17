@@ -20,7 +20,13 @@ class CourseController extends Controller
     public function dashboard()
     {
         $course = Course::all();
-        return view('admin', compact('course'));
+        return view('lecture.dashboard', compact('course'));
+    }
+
+    public function profile()
+    {
+        $course = Course::all();
+        return view('lecture.profile', compact('course'));
     }
 
     /**
