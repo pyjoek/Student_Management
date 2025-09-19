@@ -9,28 +9,44 @@ Users
     document.addEventListener('DOMContentLoaded', () => {
         const project = document.querySelector('.user');
         const customer = document.querySelector('.all');
-        project.style.display = 'block';
+        const customers = document.querySelector('.allusers');
+        customers.style.display = 'block';
+        project.style.display = 'none';
         customer.style.display = 'none';
     })
-
+    
     function project() {
         const project = document.querySelector('.user');
         const customer = document.querySelector('.all');
+        const customers = document.querySelector('.allusers');
         project.style.display = 'block';
         customer.style.display = 'none';
+        customers.style.display = 'none';
     }
-
+    
     function customer() {
         const project = document.querySelector('.user');
         const customer = document.querySelector('.all');
+        const customers = document.querySelector('.allusers');
         project.style.display = 'none';
         customer.style.display = 'block';
+        customers.style.display = 'none';
+    }
+
+    function customers() {
+        const project = document.querySelector('.user');
+        const customer = document.querySelector('.all');
+        const customers = document.querySelector('.allusers');
+        project.style.display = 'none';
+        customer.style.display = 'none';
+        customers.style.display = 'block';
     }
 </script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <center>
     <div class="form-selectin mb-2">
+        <button id="toggle-btn" class="btn btn-primary" onclick="customers()">All Users</button>
         <button id="toggle-btn" class="btn btn-primary" onclick="project()">Add New Lecture</button>
         <button id="toggle-btn" class="btn btn-primary" onclick="customer()">Add New Student</button>
     </div>
@@ -149,7 +165,12 @@ Users
                 </form>
             </div>
         </div>
-        <!-- <table class="">
+    </div>
+</center>
+
+<center>
+    <div class="allusers">
+        <table class="">
             <th>Name</th>
             <th>Email</th>
             @foreach($users as $user)
@@ -158,7 +179,7 @@ Users
                 <td>{{$user->email}}</td>
             </tr>
             @endforeach
-        </table> -->
+        </table>
     </div>
 </center>
 
