@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Attendance;
 use App\Models\Course;
+use PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -248,5 +250,30 @@ public function dashboard()
         });
 
         return view('lecture.reports', compact('students'));
+    }
+
+    public function exportPdf()
+    {
+        $fromDate = Carbon::now()->subDays(30);
+        $students = Student::all()->map(function ($student) use ($fromDate) {
+            $presentDays = Attendance::where('student_id', $student->id)
+                ->where('status', 'present')
+                ->where('date', '>=', $fromDate)
+                ->distinct('date')
+                ->count('date');
+
+            $totalDays = 30;
+            $percentage = $totalDays > 0 ? round(($presentDays / $totalDays) * 100, 2) : 0;
+
+            $student->totalDays = $totalDays;
+            $student->presentDays = $presentDays;
+            $student->percentage = $percentage;
+
+            return $student;
+        });
+
+        $pdf = PDF::loadView('lecture.report-pdf', compact('students'));
+
+        return $pdf->download('attendance_report.pdf');
     }
 }

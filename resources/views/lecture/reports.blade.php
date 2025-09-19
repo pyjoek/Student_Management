@@ -7,6 +7,10 @@ Report
 @section('content')
 <div class="container">
     <h4 class="mb-4">Student Attendance Report</h4>
+    <div class="mb-3">
+    <a href="{{ route('attendance.report.pdf') }}" class="btn btn-danger">Download PDF</a>
+</div>
+
 
     <table class="table table-bordered table-striped table-sm">
         <thead class="table-light">

@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/academy/marks', [MarksController::class, 'store'])->name('new.marks');
 
         Route::get('/admin/report', [AttendanceController::class, 'adminReport'])->name('admin.report');
+        Route::get('/attendance-report/pdf', [AttendanceController::class, 'exportPdf'])->name('attendance.report.pdf');
+
 
         Route::post('/student', [StudentController::class, 'store'])->name('new.student');
         Route::post('/attach', [LectureController::class, 'store'])->name('attach');
