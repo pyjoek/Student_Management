@@ -19,8 +19,17 @@ class CourseController extends Controller
 
     public function dashboard()
     {
-        $course = Course::all();
-        return view('lecture.dashboard', compact('course'));
+        $totalUsers    = User::count();
+        $totalLectures = User::where('role', 'admin')->count();
+        $totalStudents = Student::count();
+        $totalCourses  = Course::count();
+
+        return view('lecture.dashboard', compact(
+            'totalUsers',
+            'totalLectures',
+            'totalStudents',
+            'totalCourses'
+        ));
     }
 
     public function profile()
