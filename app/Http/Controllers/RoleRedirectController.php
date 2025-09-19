@@ -16,7 +16,7 @@ class RoleRedirectController extends Controller
         } elseif ($user->role == ('lecture')) {
             return redirect('/dashbaord');
         } elseif ($user->role == ('student')) {
-            return redirect('/student');
+            return redirect('/student/dashboard');
         }
 
         abort(403, 'Unauthorized');

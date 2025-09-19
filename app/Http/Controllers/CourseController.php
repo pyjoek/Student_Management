@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Course;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -24,11 +26,38 @@ class CourseController extends Controller
         $totalStudents = Student::count();
         $totalCourses  = Course::count();
 
+        $studentsByDay = Student::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->where('created_at', '>=', Carbon::now()->subDays(30))
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $labels = $studentsByDay->pluck('date')->map(fn($d) => Carbon::parse($d)->format('d M'));
+        $counts = $studentsByDay->pluck('count');
+
+        // Attendance Today
+        $today = Carbon::today();
+
+        $attendedToday = Attendance::whereDate('date', $today)
+            ->where('status', 'present')
+            ->count();
+
+        $expectedStudents = 30; // set fixed total expected students
+        $absentToday = max($expectedStudents - $attendedToday, 0);
+
+        $attendanceLabels = ['Present', 'Absent'];
+        $attendanceCounts = [$attendedToday, $absentToday];
+
         return view('lecture.dashboard', compact(
             'totalUsers',
             'totalLectures',
             'totalStudents',
-            'totalCourses'
+            'totalCourses',
+            'labels',
+            'counts',
+            'attendanceLabels',
+            'attendanceCounts',
+            'expectedStudents'
         ));
     }
 

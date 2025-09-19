@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Attendance;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -17,7 +18,17 @@ class AttendanceController extends Controller
 
     public function dashboard()
     {
-        return view('student.dashboard');
+        // Total count
+        $totalStudents = Student::count();
+
+        // Group students by course (for graph)
+        $studentsByCourse = Course::withCount('student')->get();
+
+        // Prepare data for chart
+        $labels = $studentsByCourse->pluck('name');
+        $counts = $studentsByCourse->pluck('students_count');
+
+        return view('student.dashboard', compact('totalStudents', 'labels', 'counts'));
     }
 
     public function showd($date)
