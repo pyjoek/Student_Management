@@ -6,10 +6,47 @@ Dashboard
 
 @section('content')
 <div class="container">
-    <h4 class="mb-4">Dashboard soon</h4>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+
+    <div class="row mt-5" >
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <h4 style="color: white">500</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Lectures</h5>
+                    <h4 style="color: white">500</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Student</h5>
+                    <h4 style="color: white">500</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Courses</h5>
+                    <h4 style="color: white">500</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
