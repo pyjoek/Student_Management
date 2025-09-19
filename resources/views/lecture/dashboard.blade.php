@@ -1,5 +1,9 @@
 @extends('lecture.admin')
 
+@section('header')
+Dashboard
+@endsection
+
 @section('content')
 <div class="container">
     <h4 class="mb-4">Dashboard soon</h4>

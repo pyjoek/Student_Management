@@ -1,4 +1,4 @@
-@extends('admin')
+@extends('lecture.admin')
 
 @section('header')
 Attach Lecture to A Course

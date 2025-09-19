@@ -1,5 +1,9 @@
 @extends('lecture.admin')
 
+@section('header')
+Report
+@endsection
+
 @section('content')
 <div class="container">
     <h4 class="mb-4">Student Attendance Report</h4>

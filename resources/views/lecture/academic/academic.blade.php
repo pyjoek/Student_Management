@@ -1,7 +1,7 @@
 @extends('lecture.admin')
 
 @section('header')
-Add New Module
+Academy
 @endsection
 
 @section('content')
