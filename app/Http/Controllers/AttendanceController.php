@@ -16,20 +16,38 @@ class AttendanceController extends Controller
         return view('lecture.new.attendance', compact('dates'));
     }
 
-    public function dashboard()
-    {
-        // Total count
-        $totalStudents = Student::count();
+public function dashboard()
+{
+    $user = \Illuminate\Support\Facades\Auth::user();
 
-        // Group students by course (for graph)
-        $studentsByCourse = Course::withCount('student')->get();
+    // Find the student record for the logged-in user
+    $student = \App\Models\Student::where('name', $user->name)->first();
 
-        // Prepare data for chart
-        $labels = $studentsByCourse->pluck('name');
-        $counts = $studentsByCourse->pluck('students_count');
-
-        return view('student.dashboard', compact('totalStudents', 'labels', 'counts'));
+    if (!$student) {
+        return redirect()->back()->with('error', 'Student record not found.');
     }
+
+    $fromDate = \Carbon\Carbon::now()->subDays(30);
+
+    // Count distinct days attended in the last 30 days
+    $attendedDays = \App\Models\Attendance::where('student_id', $student->id)
+        ->where('status', 'present')
+        ->where('date', '>=', $fromDate)
+        ->distinct('date')
+        ->count('date');
+
+    $totalDays = 30;
+    $missedDays = max($totalDays - $attendedDays, 0);
+
+    return view('student.dashboard', compact(
+        'totalDays',
+        'attendedDays',
+        'missedDays'
+    ));
+}
+
+
+
 
     public function showd($date)
     {
