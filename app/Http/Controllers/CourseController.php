@@ -34,17 +34,18 @@ class CourseController extends Controller
 
         $labels = $studentsByDay->pluck('date')->map(fn($d) => Carbon::parse($d)->format('d M'));
         $counts = $studentsByDay->pluck('count');
-
+        // $counts = [$counts, 100];
+        
         // Attendance Today
         $today = Carbon::today();
-
+        
         $attendedToday = Attendance::whereDate('date', $today)
-            ->where('status', 'present')
-            ->count();
-
+        ->where('status', 'present')
+        ->count();
+        
         $expectedStudents = 30; // set fixed total expected students
         $absentToday = max($expectedStudents - $attendedToday, 0);
-
+        
         $attendanceLabels = ['Present', 'Absent'];
         $attendanceCounts = [$attendedToday, $absentToday];
 
