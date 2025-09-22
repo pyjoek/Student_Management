@@ -52,11 +52,6 @@
 
             <!-- Login + Forgot Password -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-                @if (Route::has('password.request'))
-                    <a class="text-decoration-none text-secondary" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
 
                 <x-primary-button class="btn btn-danger ms-4">
                     {{ __('Log in') }}
