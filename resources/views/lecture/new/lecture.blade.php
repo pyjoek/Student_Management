@@ -168,19 +168,40 @@ Users
     </div>
 </center>
 
-<center>
-    <div class="allusers">
-        <table class="">
-            <th>Name</th>
-            <th>Email</th>
-            @foreach($users as $user)
-            <tr>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-            </tr>
-            @endforeach
-        </table>
+<div class="container mt-4 allusers">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="text-center mb-4">All Users</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($users as $user)
+                                    <tr>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center">No users found.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</center>
+</div>
+
 
 @endsection
