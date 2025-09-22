@@ -27,6 +27,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Registration Number</label>
+            <input type="text" name="regno" value="{{ old('regno', auth()->user()->student()->first()->regno) }}" class="form-control" readonly>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">New Password <small>(leave blank if not changing)</small></label>
             <input type="password" name="password" class="form-control">
         </div>

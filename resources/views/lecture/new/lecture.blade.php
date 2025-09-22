@@ -131,6 +131,13 @@ Users
                         <x-text-input id="email" class="form-control form-control-sm" type="email" name="email" :value="old('email')" required autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="text-danger mt-1" />
                     </div>
+
+                    <!-- Reg No -->
+                    <div class="mb-2">
+                        <x-input-label for="regno" :value="__('RegNo')" />
+                        <x-text-input id="regno" class="form-control form-control-sm" type="text" name="regno" :value="old('regno')" required />
+                        <x-input-error :messages="$errors->get('regno')" class="text-danger mt-1" />
+                    </div>
     
                     <!-- Role Selection -->
                     <div class="mb-2">

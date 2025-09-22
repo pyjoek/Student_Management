@@ -44,7 +44,7 @@ public function dashboard()
     return view('student.dashboard', compact(
         'totalDays',
         'attendedDays',
-        'missedDays'
+        'missedDays',
     ));
 }
 

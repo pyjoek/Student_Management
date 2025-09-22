@@ -53,4 +53,9 @@ class User extends Authenticatable
                     ->using(CourseLecture::class)
                     ->withTimestamps();
     }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'email', 'email');
+    }
 }

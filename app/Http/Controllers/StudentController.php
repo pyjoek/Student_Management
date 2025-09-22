@@ -87,6 +87,7 @@ public function markAttendance(Request $request)
         $student = Student::create([
             'name' => $request->name,
             'email' => $request->email,
+            'regno' => $request->regno,
             'course_id' => $request->course_id,
             'password' => $request->password
         ]);
@@ -94,6 +95,7 @@ public function markAttendance(Request $request)
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'regno' => $request->regno,
             'password' => Hash::make($request->password),
             'role' => 'student'
         ]);
